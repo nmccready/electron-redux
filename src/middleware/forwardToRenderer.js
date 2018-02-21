@@ -5,8 +5,9 @@ import hiddenRequire from '../helpers/webpackHack';
 const forwardToRenderer = (store, dependencies = {}) => next => (action) => {
   // eslint-disable-line no-unused-vars
   const webContents = dependencies.webContents || get(hiddenRequire('electron'), 'webContents');
+  const doValidateAction = dependencies.doValidateAction || true;
 
-  if (!validateAction(action)) return next(action);
+  if (doValidateAction && !validateAction(action)) return next(action);
   if (action.meta && action.meta.scope === 'local') return next(action);
 
   // change scope to avoid endless-loop

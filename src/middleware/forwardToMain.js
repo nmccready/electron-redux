@@ -6,8 +6,10 @@ const forwardToMain = (store, dependencies = {}) => next => (action) => {
   // eslint-disable-line no-unused-vars
   const ipcRenderer = dependencies.ipcRenderer ||
     get(hiddenRequire('electron'),  'ipcRenderer');
+  
+  const doValidateAction = dependencies.doValidateAction || true;
 
-  if (!validateAction(action)) return next(action);
+  if (doValidateAction && !validateAction(action)) return next(action);
 
   if (
     action.type.substr(0, 2) !== '@@' &&
