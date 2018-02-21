@@ -11,7 +11,7 @@ const forwardToRenderer = (store, dependencies = {}) => next => (action) => {
   const doValidateAction = dependencies.doValidateAction != null ? dependencies.doValidateAction : true;
   const debug = dependencies.debug || noop;
 
-  if ((!action || !action.type) || (doValidateAction && !validateAction(action)))) {
+  if ((!action || !action.type) || (doValidateAction && !validateAction(action))) {
     debug(()=> "invalid action, skipping");
     return next(action)
   };

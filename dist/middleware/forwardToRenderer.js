@@ -28,7 +28,7 @@ var forwardToRenderer = function forwardToRenderer(store) {
       var doValidateAction = dependencies.doValidateAction != null ? dependencies.doValidateAction : true;
       var debug = dependencies.debug || noop;
 
-      if (doValidateAction && !(0, _validateAction.default)(action)) {
+      if (!action || !action.type || doValidateAction && !(0, _validateAction.default)(action)) {
         debug(function () {
           return "invalid action, skipping";
         });
