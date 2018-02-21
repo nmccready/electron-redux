@@ -1,8 +1,10 @@
+import { get } from 'lodash';
 import validateAction from '../helpers/validateAction';
+import hiddenRequire from '../helpers/webpackHack';
 
 const forwardToRenderer = (store, dependencies = {}) => next => (action) => {
   // eslint-disable-line no-unused-vars
-  const webContents = dependencies.webContents || require('electron').webContents;
+  const webContents = dependencies.webContents || get(hiddenRequire('electron'), 'webContents');
 
   if (!validateAction(action)) return next(action);
   if (action.meta && action.meta.scope === 'local') return next(action);

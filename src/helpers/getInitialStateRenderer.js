@@ -1,5 +1,8 @@
+import hiddenRequire from './webpackHack';
+import { get } from 'lodash';
+
 export default function getInitialStateRenderer(dependencies = {}) {
-  const remote = dependencies.remote || require('electron').remote;
+  const remote = dependencies.remote || get(hiddenRequire('electron'), 'remote');
 
   const getReduxState = remote.getGlobal('getReduxState');
   if (!getReduxState) {

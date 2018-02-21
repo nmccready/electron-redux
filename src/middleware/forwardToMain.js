@@ -1,8 +1,11 @@
+import { get } from 'lodash';
 import validateAction from '../helpers/validateAction';
+import hiddenRequire from '../helpers/webpackHack';
 
 const forwardToMain = (store, dependencies = {}) => next => (action) => {
   // eslint-disable-line no-unused-vars
-  const ipcRenderer = dependencies.ipcRenderer || require('electron').ipcRenderer;
+  const ipcRenderer = dependencies.ipcRenderer ||
+    get(hiddenRequire('electron'),  'ipcRenderer');
 
   if (!validateAction(action)) return next(action);
 
