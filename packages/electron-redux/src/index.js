@@ -1,3 +1,4 @@
+import createElectronReduxMiddlewares from './middleware/createElectronReduxMiddlewares';
 import forwardToMain from './middleware/forwardToMain';
 import forwardToRenderer from './middleware/forwardToRenderer';
 import triggerAlias from './middleware/triggerAlias';
@@ -7,6 +8,7 @@ import replayActionRenderer from './helpers/replayActionRenderer';
 import getInitialStateRenderer from './helpers/getInitialStateRenderer';
 
 export {
+  createElectronReduxMiddlewares,
   forwardToMain,
   forwardToRenderer,
   triggerAlias,
