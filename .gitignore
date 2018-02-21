@@ -1,4 +1,5 @@
 dist/__mocks__
+dist/actions/__tests__
 dist/helpers/__mocks__
 dist/helpers/__tests__
 dist/middleware/__tests__
