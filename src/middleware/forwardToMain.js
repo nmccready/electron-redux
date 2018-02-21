@@ -14,7 +14,7 @@ const forwardToMain = (store, dependencies = {}) => next => (action) => {
 
   const debug = dependencies.debug || noop;
 
-  if (doValidateAction && !validateAction(action)) {
+  if ((!action || !action.type) || (doValidateAction && !validateAction(action)))) {
     debug(()=> "invalid action, skipping");
     return next(action)
   };
