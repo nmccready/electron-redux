@@ -1,4 +1,9 @@
 dist/__mocks__
+dist/helpers/__mocks__
+dist/helpers/__tests__
+dist/middleware/__tests__
+dist/middleware/__mocks__
+dist/registry/__tests__
 node_modules/
 coverage/
 *.log
