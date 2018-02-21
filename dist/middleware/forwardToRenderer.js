@@ -15,14 +15,36 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
+var noop = function noop() {
+  return undefined;
+};
+
 var forwardToRenderer = function forwardToRenderer(store) {
   var dependencies = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   return function (next) {
     return function (action) {
       // eslint-disable-line no-unused-vars
       var webContents = dependencies.webContents || (0, _lodash.get)((0, _webpackHack.default)('electron'), 'webContents');
-      if (!(0, _validateAction.default)(action)) return next(action);
-      if (action.meta && action.meta.scope === 'local') return next(action); // change scope to avoid endless-loop
+      var doValidateAction = dependencies.doValidateAction || true;
+      var debug = dependencies.debug || noop;
+
+      if (doValidateAction && !(0, _validateAction.default)(action)) {
+        debug(function () {
+          return "invalid action, skipping";
+        });
+        return next(action);
+      }
+
+      ;
+
+      if (action.meta && action.meta.scope === 'local') {
+        debug(function () {
+          return "meta: local action, skipping";
+        });
+        return next(action);
+      }
+
+      ; // change scope to avoid endless-loop
 
       var rendererAction = _extends({}, action, {
         meta: _extends({}, action.meta, {
@@ -31,7 +53,13 @@ var forwardToRenderer = function forwardToRenderer(store) {
       });
 
       var allWebContents = webContents.getAllWebContents();
+      debug(function () {
+        return allWebContents;
+      });
       allWebContents.forEach(function (contents) {
+        debug(function () {
+          return "forwardToRenderer: sending: redux-action type ".concat(action.type);
+        });
         contents.send('redux-action', rendererAction);
       });
       return next(action);
