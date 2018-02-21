@@ -1,9 +1,8 @@
-import { webContents as elecWebContents } from 'electron';
 import validateAction from '../helpers/validateAction';
 
 const forwardToRenderer = (store, dependencies = {}) => next => (action) => {
   // eslint-disable-line no-unused-vars
-  const webContents = dependencies.webContents || elecWebContents;
+  const webContents = dependencies.webContents || require('electron').webContents;
 
   if (!validateAction(action)) return next(action);
   if (action.meta && action.meta.scope === 'local') return next(action);

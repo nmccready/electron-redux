@@ -1,9 +1,8 @@
-import { ipcRenderer as elecIpcRenderer } from 'electron';
 import validateAction from '../helpers/validateAction';
 
 const forwardToMain = (store, dependencies = {}) => next => (action) => {
   // eslint-disable-line no-unused-vars
-  const ipcRenderer = dependencies.ipcRenderer || elecIpcRenderer;
+  const ipcRenderer = dependencies.ipcRenderer || require('electron').ipcRenderer;
 
   if (!validateAction(action)) return next(action);
 

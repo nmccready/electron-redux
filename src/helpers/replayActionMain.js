@@ -1,6 +1,5 @@
-import { ipcMain } from 'electron';
-
-export default function replayActionMain(store) {
+export default function replayActionMain(store, dependencies = {}) {
+  const ipcMain = dependencies.ipcMain || require('electron').ipcMain;
   /**
    * Give renderers a way to sync the current state of the store, but be sure
    * we don't expose any remote objects. In other words, we need our state to
