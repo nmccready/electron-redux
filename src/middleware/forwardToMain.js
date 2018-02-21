@@ -10,7 +10,7 @@ const forwardToMain = (store, dependencies = {}) => next => (action) => {
     get(hiddenRequire('electron'),  'ipcRenderer');
     
   
-  const doValidateAction = dependencies.doValidateAction || true;
+  const doValidateAction = dependencies.doValidateAction != null ? dependencies.doValidateAction : true;
 
   const debug = dependencies.debug || noop;
 

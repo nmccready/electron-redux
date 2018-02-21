@@ -8,7 +8,7 @@ const noop = () => undefined;
 const forwardToRenderer = (store, dependencies = {}) => next => (action) => {
   // eslint-disable-line no-unused-vars
   const webContents = dependencies.webContents || get(hiddenRequire('electron'), 'webContents');
-  const doValidateAction = dependencies.doValidateAction || true;
+  const doValidateAction = dependencies.doValidateAction != null ? dependencies.doValidateAction : true;
   const debug = dependencies.debug || noop;
 
   if (doValidateAction && !validateAction(action)) {

@@ -23,7 +23,7 @@ var forwardToMain = function forwardToMain(store) {
     return function (action) {
       // eslint-disable-line no-unused-vars
       var ipcRenderer = dependencies.ipcRenderer || (0, _lodash.get)((0, _webpackHack.default)('electron'), 'ipcRenderer');
-      var doValidateAction = dependencies.doValidateAction || true;
+      var doValidateAction = dependencies.doValidateAction != null ? dependencies.doValidateAction : true;
       var debug = dependencies.debug || noop;
 
       if (doValidateAction && !(0, _validateAction.default)(action)) {
