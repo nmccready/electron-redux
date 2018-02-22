@@ -1,0 +1,5 @@
+./dist/__mocks__
+*rc
+jest.config.js
+*.json
+*.md
